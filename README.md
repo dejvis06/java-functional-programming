@@ -1,23 +1,71 @@
-# Java Examples
+# Functional Programming
 
-This repository contains Java examples showcasing various features, including lambda expressions, functional interfaces, and method references.
+This repository contains Java code examples demonstrating functional programming. Each class focuses on a specific topic, showcasing syntax and usage. </br>
+This README.md file provides a structured overview of the code examples, with sections for each class and explanations of the demonstrated concepts.
+_(see the tests package for more)_
 
-## LambdaAndFunctionalInterface
+## Lambda and Functional Interface (LambdaAndFunctionalInterface)
 
-### Overview
+This class demonstrates the use of lambda expressions with the `Thread` and `Runnable` interface. It includes a simple lambda expression syntax and usage.
 
-The `LambdaAndFunctionalInterface` class demonstrates the use of lambda expressions with the Thread and Runnable interface.
+```java
+@Test
+void contextLoads() {
+    Thread thread = new Thread(() -> log.info("Lambda executed"));
+    thread.run();
+}
+```
 
-## ConstructorReference
+## Method Reference (MethodReference)
 
-### Overview
+This class serves as an example of using method references in Java. It covers scenarios with a `Consumer` interface, static methods and `BiFunction` interface, and instance methods and `Function` interface. It also includes an inner class `Example` to showcase various method reference types.
 
-The `ConstructorReference` class provides examples of constructor references and functional interfaces in Java.
+#### Usage Example
 
-## MethodReference
+```java
+// Method reference with a Consumer interface
+Consumer<String> methodReferenceConsumer = System.err::println;
 
-### Overview
+// Method reference with a static method and BiFunction interface
+BiFunction<Integer, Integer, Integer> staticMethodReferenceFunction = Example::staticMethod;
 
-The `MethodReference` class demonstrates various scenarios of using method references in Java.
+// Method reference with an instance method and Function interface
+Function<Example, Integer> instanceMethodReferenceFunctionExample = Example::instanceMethod;
 
-**Note: All code examples are located in the `test` package.**
+// Applying the instance method reference on an Example instance
+instanceMethodReferenceFunctionExample.apply(new Example("test"));
+```
+
+
+## Constructor Reference (ConstructorReference)
+
+This class demonstrates constructor reference usage for creating a Thread using a `Function`. It also introduces a functional interface `ThreadGenerator` representing a thread generator with multiple parameters.
+
+#### Usage Example
+
+```java
+// Creating a Function that generates a Thread using its constructor reference
+Function<Runnable, Thread> threadGenerator = Thread::new;
+
+// Creating a functional interface instance with multiple parameters
+ThreadGenerator<ThreadGroup, Runnable, String, Thread> threadGeneratorMultipleParams = Thread::new;
+```
+
+## Aggregate Object Wrapper (AggregateObjectWrapper)
+
+This class implements the Iterator pattern using a custom `MyArrayList` class. It includes methods for iterating, filtering, and printing elements using functional programming concepts.
+
+#### Usage Example
+
+```java
+// Creating a MyArrayList instance with an array of integers
+MyArrayList myArrayList = new MyArrayList(new Object[]{1, 2, 3, 4, 5});
+
+// Method chain: forEach and filter
+System.err.println("Method chain: forEach and filter");
+myArrayList.forEach(System.err::println)
+        .filter(element -> (int) element > 2)
+        .forEach(System.err::println);
+```
+
+
