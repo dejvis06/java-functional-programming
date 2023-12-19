@@ -68,4 +68,28 @@ myArrayList.forEach(System.err::println)
         .forEach(System.err::println);
 ```
 
+## Stream Spliterator (StreamSpliterator)
+
+This class demonstrates the usage of a custom Spliterator to process lines from a file and convert them into a Stream of Book objects using Java Streams API. </br>
+It includes a BookSpliterator inner class, implementing the Spliterator interface, and a Book class to represent individual book details.
+
+#### Usage
+
+The `contextLoads` method in the test class reads lines from a file, creates a Spliterator for Book objects (`BookSpliterator`), and converts it into a Stream of Book objects. Finally, it prints the Book objects.
+
+```java
+    // Reading lines from a file
+    Stream<String> lines = Files.lines(resource.getFile().toPath());
+
+    // Creating a Spliterator for Book objects
+    Spliterator<Book> spliterator = new BookSpliterator(lines.spliterator());
+
+    // Converting Spliterator to Stream of Book objects
+    Stream<Book> books = StreamSupport.stream(spliterator, false);
+
+    // Printing the Book objects
+    books.forEach(System.err::println);
+```
+
+
 
